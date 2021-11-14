@@ -1,27 +1,21 @@
 <template>
   <div>
-      <v-btn icon depressed color="primary" @click="addSubModel=true"><v-icon>mdi-pencil</v-icon></v-btn>
+      <v-btn icon depressed color="error" @click="addPermModel=true"><v-icon>mdi-trash-can</v-icon></v-btn>
    
-      <v-dialog v-model="addSubModel" width="300">
+      <v-dialog v-model="addPermModel" width="300">
            <v-form v-model="valid" ref="form" lazy-validation>
        <v-card>
            <v-card-title>
-               Update Submodule
+               Delete Service Type
                <v-spacer/>
-               <v-btn icon @click="addSubModel=false"><v-icon>mdi-close</v-icon></v-btn>
+               <v-btn icon @click="addPermModel=false"><v-icon>mdi-close</v-icon></v-btn>
            </v-card-title>
-           <v-card-text>
-                  <v-text-field
-                            label="Name"
-                            outlined
-                            v-model="form.name"
-                            :rules="nameRule"
-                        />
-                        
-                          
+           <v-card-text class="text-center">
+                <h4>You are about to delete </h4> 
+                <p>{{type.name}}</p>
            </v-card-text>
            <v-card-actions>
-               <v-btn rounded class="error" @click="addSubModel=false">Cancel</v-btn>
+               <v-btn rounded class="error" @click="addPermModel=false">Cancel</v-btn>
                <v-spacer/>
                <v-btn rounded class="success" @click="submit" :loading="loading" :disabled="loading">Submit</v-btn>
            </v-card-actions>
@@ -39,16 +33,12 @@
 
 <script>
 export default {
-    props:['permission'],
+    props:['type'],
  data(){
      return{
-         addSubModel:false,
+         addPermModel:false,
          valid:false,
-         form:{
-             name:this.permission.name,
-         },
-         nameRule:[v=>!!v || 'Module name is required'],
-         snackbar:false,
+        snackbar:false,
          color:'',
          text:'',
          loading:false
@@ -60,14 +50,14 @@ export default {
           this.valid = true
           this.loading=true
              try {
-                 await this.$axios.patch('api/admin/permission/'+this.permission.id,this.form).then((res)=>{
+                 await this.$axios.delete('api/admin/type/'+this.type.id).then((res)=>{
                         this.loading = false
                         this.color="success"
                         this.snackbar=true
                         this.text=res.data.message
-                        this.$store.dispatch('permission/getPermissions',this.permission.submoduleId)
+                        this.$store.dispatch('type/getTypes',this.type.serviceId)
                         this.$refs.form.reset()
-                        this.addSubModel = false
+                        this.addPermModel = false
 
                  })
              }catch (err) {

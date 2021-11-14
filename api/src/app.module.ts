@@ -13,6 +13,11 @@ import { AdminmenusModule } from './adminmenus/adminmenus.module';
 import { AdminAuthModule } from './admin-auth/admin-auth.module';
 import { ProfileModule } from './profile/profile.module';
 import { AdminpasswordrestModule } from './adminpasswordrest/adminpasswordrest.module';
+import { InstallModule } from './install/install.module';
+import { ServiceModule } from './service/service.module';
+import { TypeModule } from './type/type.module';
+import { ProductModule } from './product/product.module';
+import { InquiryModule } from './inquiry/inquiry.module';
 
 @Module({
   imports: [
@@ -39,6 +44,11 @@ import { AdminpasswordrestModule } from './adminpasswordrest/adminpasswordrest.m
     AdminAuthModule,
     ProfileModule,
     AdminpasswordrestModule,
+    InstallModule,
+    ServiceModule,
+    TypeModule,
+    ProductModule,
+    InquiryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

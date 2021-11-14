@@ -71,12 +71,23 @@
     </v-menu>
     </v-app-bar>
     <v-main class="grey lighten-4">
-      
+        <v-overlay :value="overlay">
+         <div>
+      <v-progress-circular
+        indeterminate
+        size="64"
+        
+      ></v-progress-circular>
+         </div>
+         <div>
+       Looading 
+         </div>
+    </v-overlay>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-   
+     
     
   </v-app>
 </template>
@@ -90,11 +101,14 @@ export default {
       offset:true,
       fixed:true,
       items: [],
-      title: 'Vuetify.js'
+      title: 'Zimbabwe National Family Planning Council',
+      overlay:false
     }
   },
   async fetch(){
+         this.overlay= true
         this.$store.dispatch('sidebar/getMenus')
+        this.overlay = false
   },methods:{
   async logout(){
     await this.$auth.logout()

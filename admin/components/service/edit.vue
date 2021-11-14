@@ -6,7 +6,7 @@
            <v-form v-model="valid" ref="form" lazy-validation>
        <v-card>
            <v-card-title>
-               Update Submodule
+               Update Service
                <v-spacer/>
                <v-btn icon @click="addSubModel=false"><v-icon>mdi-close</v-icon></v-btn>
            </v-card-title>
@@ -29,6 +29,7 @@
            </v-form>
       </v-dialog>
        <v-snackbar
+      absolute
       :color="color"
       right
       top
@@ -39,15 +40,15 @@
 
 <script>
 export default {
-    props:['permission'],
+    props:['service'],
  data(){
      return{
          addSubModel:false,
          valid:false,
          form:{
-             name:this.permission.name,
+             name:this.service.name,
          },
-         nameRule:[v=>!!v || 'Module name is required'],
+         nameRule:[v=>!!v || 'Service name is required'],
          snackbar:false,
          color:'',
          text:'',
@@ -60,13 +61,12 @@ export default {
           this.valid = true
           this.loading=true
              try {
-                 await this.$axios.patch('api/admin/permission/'+this.permission.id,this.form).then((res)=>{
+                 await this.$axios.patch('api/admin/service/'+this.service.id,this.form).then((res)=>{
                         this.loading = false
                         this.color="success"
                         this.snackbar=true
                         this.text=res.data.message
-                        this.$store.dispatch('permission/getPermissions',this.permission.submoduleId)
-                        this.$refs.form.reset()
+                        this.$store.dispatch('service/getServices',this.service.id)
                         this.addSubModel = false
 
                  })
