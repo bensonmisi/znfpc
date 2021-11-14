@@ -43,7 +43,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    "vue2-editor/nuxt"
   ],
   router: {
     middleware: ['auth']
@@ -58,7 +59,7 @@ export default {
           type: 'Bearer'
         },
         user: {
-          property: false,
+          property: 'user',
           // autoFetch: true
         },
         endpoints: {

@@ -1,22 +1,12 @@
 <template>
-    <v-container>
-      <v-row>
-          <v-col>
-              <v-card>
-                  <v-card-text class="d-flex">
-                      <v-btn text to="dashboard">Dashboard</v-btn>
-                     </v-card-text>
-              </v-card>
-          </v-col>
-      </v-row>
-      <v-row class="mt-5">
-          <v-col>
+  <div>
+      <v-btn x-small depressed color="info" @click="addPermModel=true">View</v-btn>
+   
+      <v-dialog v-model="addPermModel" width="900">
+        
                 <v-card>
                 <v-card-title>
-                  My Inquires
-                    <v-spacer/>
-                    <InquiryFilter/>
-                    <InquiryAdd/>
+                  Report By Agent
                 </v-card-title>
                 <v-card-text>
                  <v-simple-table>
@@ -59,7 +49,6 @@
                               <td>{{ per.service.name }}</td>
                               <td>{{ per.type.name||'' }}</td>
                         <td class="d-flex justify-end pt-2 pb-2">
-                            <InquiryEdit :inquiry="per"/>
                             <InquiryView :inquiry="per"/>
                         </td>
                         </tr>
@@ -74,28 +63,30 @@
                 </v-simple-table>
                 </v-card-text>
             </v-card>
-          </v-col>
-      </v-row>
+       
+      </v-dialog>
            <v-overlay :value="overlay">
       <v-progress-circular
         indeterminate
         size="64"
       ></v-progress-circular>
     </v-overlay>
-    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
 layout:'user',
+props:['id'],
 data(){
     return{
-        overlay:false
+        overlay:false,
+        addPermModel:false
     }
 },
 async fetch(){
     this.overlay=true
-   await this.$store.dispatch('inquiry/getMyInquries') 
+   await this.$store.dispatch('inquiry/getByAgent',this.id) 
    this.overlay = false
 },computed:{
     inquiries(){

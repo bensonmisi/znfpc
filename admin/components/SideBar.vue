@@ -47,15 +47,11 @@
 
 <script>
 export default {
-
+ props:['menus'],
   data(){
       return{
           offset:true
       }
-  },computed:{
-  menus(){
-    return this.$store.state.sidebar.menus
-  }
   }
 }
 </script>

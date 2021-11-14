@@ -3,6 +3,7 @@ import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn,
 import { Role } from "src/role/entities/role.entity";
 import { administratorResetToken } from "./administratorResetToken.entity";
 import { Service } from "src/service/entities/service.entity";
+import { Inquiry } from "src/inquiry/entities/inquiry.entity";
 @Entity()
 export class Administrator extends BaseEntity {
  @PrimaryGeneratedColumn()
@@ -57,6 +58,9 @@ export class Administrator extends BaseEntity {
 
  @OneToMany(()=>Service,service=>service.administrator)
  service:Service[]
+
+ @OneToMany(()=>Inquiry,inquiry=>inquiry.administrator,{eager:true})
+ inquires:Inquiry[]
 
 
 

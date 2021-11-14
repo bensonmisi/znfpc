@@ -65,7 +65,7 @@ export default {
  },computed:{
 
      profile(){
-         const user = this.$store.state.auth.user
+         const user = this.$store.state.auth.profile.user
          this.form.name = user.name
          this.form.surname = user.surname
          this.form.email = user.email

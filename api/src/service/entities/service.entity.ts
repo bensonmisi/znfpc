@@ -1,4 +1,5 @@
 import { Administrator } from "src/administrator/entities/administrator.entity";
+import { Inquiry } from "src/inquiry/entities/inquiry.entity";
 import { Type } from "src/type/entities/type.entity";
 import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn ,Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 
@@ -22,6 +23,9 @@ export class Service  extends BaseEntity{
     @ManyToOne(()=>Administrator,adminstrator=>adminstrator.service)
     administrator:Administrator
 
-    @OneToMany(()=>Type,type=>type.service)
+    @OneToMany(()=>Type,type=>type.service,{eager:true})
     types:Type[]
+
+    @OneToMany(()=>Inquiry,inquiry=>inquiry.service,{eager:true})
+    inquiries:Inquiry[]
 }

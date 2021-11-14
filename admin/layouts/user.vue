@@ -7,11 +7,11 @@
       dark
       color ="blue darken-3 accent-4"
     >
-    <div class="d-flex justify-center pa-3">
-               <img src="v.png" width="90px"/>
+    <div class="d-flex white justify-center pa-3">
+               <img src="logo.jpg" width="90px"/>
                </div>
                
-     <SideBar/>
+     <SideBar :menus="getMenus"/>
        <template v-slot:append>
         <div class="pa-2">
           <v-btn block color="error" @click="logout">
@@ -25,6 +25,7 @@
       fixed
       app
       flat
+      height="115px"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
      
@@ -39,7 +40,8 @@
           v-on="on"
           
         >
-         Welcome: {{loggedInUser.name}} {{loggedInUser.surname}}
+         Welcome: {{loggedInUser.profile.name}} {{loggedInUser.profile.surname}}
+    
         </v-btn>
       </template>
       <v-list>
@@ -104,18 +106,13 @@ export default {
       title: 'Zimbabwe National Family Planning Council',
       overlay:false
     }
-  },
-  async fetch(){
-         this.overlay= true
-        this.$store.dispatch('sidebar/getMenus')
-        this.overlay = false
   },methods:{
   async logout(){
     await this.$auth.logout()
   }
   },
   computed:{
-  ...mapGetters(['isAuthenticated', 'loggedInUser']),
+  ...mapGetters(['isAuthenticated', 'loggedInUser','getMenus']),
    }
 }
 </script>

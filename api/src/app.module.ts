@@ -18,6 +18,7 @@ import { ServiceModule } from './service/service.module';
 import { TypeModule } from './type/type.module';
 import { ProductModule } from './product/product.module';
 import { InquiryModule } from './inquiry/inquiry.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { InquiryModule } from './inquiry/inquiry.module';
     TypeModule,
     ProductModule,
     InquiryModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
