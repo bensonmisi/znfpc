@@ -1,5 +1,6 @@
+import { Inquiry } from "src/inquiry/entities/inquiry.entity";
 import { Type } from "src/type/entities/type.entity";
-import { BaseEntity, Column, CreateDateColumn,UpdateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn,UpdateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Product extends BaseEntity {
@@ -23,4 +24,7 @@ export class Product extends BaseEntity {
 
     @ManyToOne(()=>Type,type=>type.products)
     type:Type
+
+    @OneToMany(()=>Inquiry,inquiry=>inquiry.product)
+    inquiries:Inquiry[]
 }

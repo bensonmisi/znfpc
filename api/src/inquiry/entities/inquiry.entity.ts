@@ -1,4 +1,5 @@
 import { Administrator } from "src/administrator/entities/administrator.entity";
+import { Product } from "src/product/entities/product.entity";
 import { Service } from "src/service/entities/service.entity";
 import { Type } from "src/type/entities/type.entity";
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -46,6 +47,28 @@ export class Inquiry extends BaseEntity{
 
     @Column({nullable:true})
     frequency:string
+
+    @Column()
+    age:string
+    
+    @Column()
+    mode:string
+
+    @Column()
+    calldate:string
+
+    @Column()
+    starttime:string
+
+    @Column()
+    endtime:string
+
+
+    @Column()
+    reference:string
+
+    @Column({nullable:true})
+    knowledge:string
     
     @Column({type:"text"})
     issue
@@ -71,4 +94,6 @@ export class Inquiry extends BaseEntity{
 
     @ManyToOne(()=>Type,type=>type.inquires)
     type:Type 
+    @ManyToOne(()=>Product,product=>product.inquiries)
+    product:Product
 }

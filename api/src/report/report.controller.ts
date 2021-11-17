@@ -22,5 +22,7 @@ export class ReportController {
   async viewByService() {
     return await this.reportService.getReportByService()
   }
+
+  
  
 }

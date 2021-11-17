@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 export class AdminmenusService {
     constructor(@InjectRepository(Role) private roleRepository:Repository<Role>){}
     async getMenus(id:number){
-        const role = await this.roleRepository.findOne({id:id})
+        const role = await this.roleRepository.findOne({id:id},{relations:['systemmodules','submodules']})
         return  this.generateMenus(role)
     }
 

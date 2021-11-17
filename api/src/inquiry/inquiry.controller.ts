@@ -8,6 +8,7 @@ import { PermissionGuard } from 'src/guards/permission.guard';
 import { HasAccesslevel } from 'src/decorators/hasaccesslevel.decorator';
 import { FilterDto } from './dto/filter.dot';
 import { HasPermission } from 'src/decorators/hasPermission.decorator';
+import { Inquiry } from './entities/inquiry.entity';
 
 @Controller('api/admin/inquiry')
 @UseGuards(JwtAuthGuard,AccessLevelGuard,PermissionGuard)
@@ -52,8 +53,17 @@ export class InquiryController {
   @HasPermission('GET_CURRENT_BY_USER')
   async getCurrentByUser(@Request() req){
     const user = req.user
-    console.log(user)
     return await this.inquiryService.getcurrentByUser(user.userId)
+  }
+  @Get('/data/getSummary')
+  async getSummary(){
+    return await this.inquiryService.getSummary()
+  }
+
+  @Post('/data/getSummary')
+  async filterDate(@Body() filterDto:FilterDto):Promise<Inquiry[]>{
+ 
+    return await this.inquiryService.filterData(filterDto)
   }
 
   

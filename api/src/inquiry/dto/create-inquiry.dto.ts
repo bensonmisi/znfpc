@@ -34,6 +34,27 @@ export class CreateInquiryDto {
     @IsNotEmpty()
     issue
 
+    @IsNotEmpty()
+    age:string
+
+    @IsNotEmpty()
+    mode:string
+
+    @IsNotEmpty()
+    calldate:string
+
+    @IsNotEmpty()
+    starttime:string
+
+    @IsNotEmpty()
+    endtime:string
+
+    @IsNotEmpty()
+    reference:string
+
+    @IsNotEmpty()
+    knowledge:string
+
     province?:string
     district?:string
 

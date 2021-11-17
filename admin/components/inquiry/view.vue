@@ -29,6 +29,10 @@
        <tr><th>Service</th><td>{{inquiry.service ? inquiry.service.name: ''}}</td></tr>
        <tr><th>Service Type</th><td>{{inquiry.type ? inquiry.type.name : ''}}</td></tr>
        <tr><th>Product</th><td>{{inquiry.product ? inquiry.product.name:  ''}}</td></tr>
+       <tr><th>Age</th><td>{{inquiry.age ? inquiry.age:  ''}}</td></tr>
+       <tr><th>Communication Mode</th><td>{{inquiry.mode ? inquiry.mode:  ''}}</td></tr>
+       <tr><th>Date</th><td>{{inquiry.calldate ? inquiry.calldate:  ''}}</td></tr>
+       <tr><th>Time</th><td>{{inquiry.starttime ? inquiry.starttime:  ''}}-{{inquiry.endtime ? inquiry.endtime:  ''}}</td></tr>
        <tr><th>Issue</th><td v-html="inquiry.issue"></td></tr>
        <tr><th>Agent</th><td >{{inquiry.administrator ? inquiry.administrator.name  : ''}}</td></tr>
       </tbody>

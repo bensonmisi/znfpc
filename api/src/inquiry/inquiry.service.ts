@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, Equal, Repository } from 'typeorm';
+import { Between, Raw, Repository } from 'typeorm';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
+import { FilterDto } from './dto/filter.dot';
 import { UpdateInquiryDto } from './dto/update-inquiry.dto';
 import { Inquiry } from './entities/inquiry.entity';
 
@@ -76,5 +77,79 @@ export class InquiryService {
   }
   async geCustome(start:Date,end:Date):Promise<Inquiry[]>{
     return await this.inquiryRepository.find({where:{created_at: Between(start.toISOString,end.toISOString)},relations:["service",'administrator','type']})
+  }
+
+  async getSummary(){
+  
+    return await this.inquiryRepository.find({
+      where:{
+      created_at: Raw((alias) => `${alias} <= NOW()`)
+    },relations:["service",'administrator','type','product']
+    
+  }); 
+  }
+
+  async filterData(filterDto:FilterDto):Promise<Inquiry[]>{
+     
+    
+    let servicequery ={}
+    let agequery ={}
+    let maritalstatusquery ={}
+    let modequery={}
+    let districtquery ={}
+    let provincequery ={}
+    let productquery ={}
+    let typequery={}
+    let genderquery={}
+
+    if(filterDto.productId){
+      productquery = Object.assign({productId:filterDto.productId})
+     }
+    if(filterDto.serviceId){
+     servicequery = Object.assign({serviceId:filterDto.serviceId})
+    }
+    if(filterDto.minage && filterDto.maxage ){
+     agequery=Object.assign({age:Between(filterDto.minage,filterDto.maxage)})
+    }
+    if(filterDto.maritalstatus){
+     maritalstatusquery = Object.assign({maritalstatus:filterDto.maritalstatus})
+    }
+
+    if(filterDto.mode){
+     modequery = Object.assign({mode:filterDto.mode})
+    }
+    
+    if(filterDto.district){
+      districtquery = Object.assign({district:filterDto.district})
+    }
+
+    if(filterDto.province){
+      provincequery = Object.assign({province:filterDto.province})
+    }
+
+    if(filterDto.typeId){
+      typequery = Object.assign({typeId:filterDto.typeId})
+    }
+    if(filterDto.gender){
+      genderquery = Object.assign({gender:filterDto.gender})
+    }
+
+    const query = {
+      ...servicequery,
+      ...agequery,
+      ...maritalstatusquery,
+      ...modequery,
+      ...districtquery,
+      ...provincequery,
+      ...productquery,
+      ...typequery,
+      ...genderquery
+    }
+
+ 
+    return await this.inquiryRepository.find({
+      where:query,relations:["service",'administrator','type','product']
+    
+  }); 
   }
 }
