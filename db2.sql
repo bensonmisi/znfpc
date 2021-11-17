@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `administrator` (
   UNIQUE KEY `IDX_be0ce9bef56d5a30b9e5752564` (`email`),
   KEY `FK_bd39026a48be0213c8d3379294f` (`roleId`),
   CONSTRAINT `FK_bd39026a48be0213c8d3379294f` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table znfpc.administrator: ~1 rows (approximately)
 /*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
@@ -76,20 +76,30 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
   `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `status` varchar(255) NOT NULL DEFAULT 'ACTIVE',
+  `age` varchar(255) NOT NULL,
+  `reference` varchar(255) NOT NULL,
+  `knowledge` varchar(255) DEFAULT NULL,
+  `mode` varchar(255) NOT NULL,
+  `starttime` varchar(255) NOT NULL,
+  `endtime` varchar(255) NOT NULL,
+  `calldate` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_e4a1a832813793cfb1a59e56056` (`administratorId`),
   KEY `FK_e63444a3a6d4a7ca1396df0ab79` (`serviceId`),
   KEY `FK_e2dbb7cf3321c070a813d52a7a0` (`typeId`),
+  KEY `FK_ebf0d00ba1e0f33f114df35db4e` (`productId`),
   CONSTRAINT `FK_e2dbb7cf3321c070a813d52a7a0` FOREIGN KEY (`typeId`) REFERENCES `type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_e4a1a832813793cfb1a59e56056` FOREIGN KEY (`administratorId`) REFERENCES `administrator` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_e63444a3a6d4a7ca1396df0ab79` FOREIGN KEY (`serviceId`) REFERENCES `service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_e63444a3a6d4a7ca1396df0ab79` FOREIGN KEY (`serviceId`) REFERENCES `service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ebf0d00ba1e0f33f114df35db4e` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table znfpc.inquiry: ~2 rows (approximately)
+-- Dumping data for table znfpc.inquiry: ~3 rows (approximately)
 /*!40000 ALTER TABLE `inquiry` DISABLE KEYS */;
-INSERT IGNORE INTO `inquiry` (`id`, `name`, `gender`, `maritalstatus`, `phonenumber`, `email`, `province`, `district`, `city`, `location`, `serviceId`, `typeId`, `productId`, `frequency`, `issue`, `administratorId`, `created_at`, `updated_at`, `status`) VALUES
-	(1, 'sdfsfsfs', 'F', 'SINGLE', '234234234234234', 'sdfsdfdsfsf', 'Matabeleland South', 'Beitbridge', 'sdfdsfdfs', 'sdfsdfsdf', 1, 1, 1, NULL, '<p>wefsdfdffsdf sffsdfsdfsdf</p>', 1, '2021-11-14 21:06:34.411518', '2021-11-14 21:06:34.411518', 'ACTIVE'),
-	(2, 'Tendai Towo', 'F', 'SINGLE', '+263775474661', 'ttowo@gmail.com', 'Harare', 'Harare', 'Harare', 'Budiriro', 1, 3, 8, NULL, '<p>How long does the  jadelle last</p>', 1, '2021-11-14 21:11:16.542971', '2021-11-14 21:20:50.000000', 'ACTIVE');
+INSERT IGNORE INTO `inquiry` (`id`, `name`, `gender`, `maritalstatus`, `phonenumber`, `email`, `province`, `district`, `city`, `location`, `serviceId`, `typeId`, `productId`, `frequency`, `issue`, `administratorId`, `created_at`, `updated_at`, `status`, `age`, `reference`, `knowledge`, `mode`, `starttime`, `endtime`, `calldate`) VALUES
+	(1, 'sdfsfsfs', 'F', 'SINGLE', '234234234234234', 'sdfsdfdsfsf', 'Matabeleland South', 'Beitbridge', 'sdfdsfdfs', 'sdfsdfsdf', 1, 1, 1, NULL, '<p>wefsdfdffsdf sffsdfsdfsdf</p>', 1, '2021-11-14 21:06:34.411518', '2021-11-17 16:38:55.746550', 'ACTIVE', '10', '', '', '', '', '', ''),
+	(2, 'Tendai Towo', 'F', 'SINGLE', '+263775474661', 'ttowo@gmail.com', 'Harare', 'Harare', 'Harare', 'Budiriro', 1, 3, 8, NULL, '<p>How long does the  jadelle last</p>', 1, '2021-11-14 21:11:16.542971', '2021-11-17 16:38:55.850844', 'ACTIVE', '15', '', '', '', '', '', ''),
+	(3, 'Vimbai Matenga', 'F', 'MARRIED', '+263775690935', 'vimbai.matenga@gmail.com', 'Harare', 'Harare', 'Harare', 'Southlands', 1, 1, 1, NULL, '<p>how much are contraceptive pills</p>', 1, '2021-11-17 12:21:01.501689', '2021-11-17 12:21:01.501689', 'ACTIVE', '33', 'From a Freind', NULL, 'CALL', '', '', '');
 /*!40000 ALTER TABLE `inquiry` ENABLE KEYS */;
 
 -- Dumping structure for table znfpc.permission
@@ -316,9 +326,9 @@ CREATE TABLE IF NOT EXISTS `submodule` (
   UNIQUE KEY `IDX_e78a0a2cd96c2a052baac4902d` (`url`),
   KEY `FK_19c28ccd9a9c271d7b5d7d95ef8` (`systemmoduleId`),
   CONSTRAINT `FK_19c28ccd9a9c271d7b5d7d95ef8` FOREIGN KEY (`systemmoduleId`) REFERENCES `system_module` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Dumping data for table znfpc.submodule: ~10 rows (approximately)
+-- Dumping data for table znfpc.submodule: ~11 rows (approximately)
 /*!40000 ALTER TABLE `submodule` DISABLE KEYS */;
 INSERT IGNORE INTO `submodule` (`id`, `systemmoduleId`, `name`, `icon`, `url`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'User Management', 'mdi-account-cog', 'Administrators', '2021-10-31 22:36:18.868061', '2021-10-31 22:36:18.868061'),
@@ -330,7 +340,8 @@ INSERT IGNORE INTO `submodule` (`id`, `systemmoduleId`, `name`, `icon`, `url`, `
 	(11, 2, 'Registration Periods', 'mdi-shape-circle-plus', 'registrationperiods', '2021-11-07 09:47:07.376098', '2021-11-07 09:47:07.376098'),
 	(19, 6, 'Services', 'mdi-cogs', 'service', '2021-11-14 14:06:29.414923', '2021-11-14 14:06:29.414923'),
 	(20, 7, 'By Agent', 'mdi-account', 'report-by-agent', '2021-11-14 22:17:32.027244', '2021-11-14 22:22:21.000000'),
-	(21, 7, 'By Service', 'mdi-file-multiple-outline', 'report-by-service', '2021-11-14 22:18:27.117383', '2021-11-14 22:22:43.000000');
+	(21, 7, 'By Service', 'mdi-file-multiple-outline', 'report-by-service', '2021-11-14 22:18:27.117383', '2021-11-14 22:22:43.000000'),
+	(22, 7, 'Overall Report', 'mdi-chart-box', 'report', '2021-11-15 23:00:29.262229', '2021-11-15 23:00:29.262229');
 /*!40000 ALTER TABLE `submodule` ENABLE KEYS */;
 
 -- Dumping structure for table znfpc.submodules_roles
@@ -344,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `submodules_roles` (
   CONSTRAINT `FK_b0a7dce5d6395e653f1aff79152` FOREIGN KEY (`submoduleId`) REFERENCES `submodule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table znfpc.submodules_roles: ~10 rows (approximately)
+-- Dumping data for table znfpc.submodules_roles: ~11 rows (approximately)
 /*!40000 ALTER TABLE `submodules_roles` DISABLE KEYS */;
 INSERT IGNORE INTO `submodules_roles` (`submoduleId`, `roleId`) VALUES
 	(1, 1),
@@ -356,7 +367,8 @@ INSERT IGNORE INTO `submodules_roles` (`submoduleId`, `roleId`) VALUES
 	(10, 1),
 	(19, 1),
 	(20, 1),
-	(21, 1);
+	(21, 1),
+	(22, 1);
 /*!40000 ALTER TABLE `submodules_roles` ENABLE KEYS */;
 
 -- Dumping structure for table znfpc.systemmodules_roles
