@@ -35,7 +35,7 @@
                    </v-col>
                    <v-col>
                         <v-select
-                            label="Gender"
+                            label="Sex"
                             outlined
                             dense
                             v-model="form.gender"
@@ -392,7 +392,7 @@ export default {
           this.loading=true
           this.form.starttime = this.time1
           this.form.endtime = this.time2
-          this.form.calldate = this.calldate
+          this.form.calldate = this.date
              try {
                  await this.$axios.post('api/admin/inquiry',this.form).then((res)=>{
                         this.loading = false
