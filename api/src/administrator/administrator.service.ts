@@ -7,6 +7,8 @@ import { Administrator } from './entities/administrator.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { administratorResetToken } from './entities/administratorResetToken.entity';
 import { MailService } from 'src/mail/mail.service';
+import * as bcrypt from 'bcrypt'
+
 @Injectable()
 export class AdministratorService {
   constructor(@InjectRepository(Administrator) private administratorRepository:Repository<Administrator>,private mailService:MailService){}
@@ -54,20 +56,25 @@ export class AdministratorService {
 
   async resetPassword(id:number):Promise<any>{
     try {
+
+        const password  = await this.getRandomPassword(999999999)
+       const hashedpassword = await bcrypt.hash(password.toString(),10)
         const user = await this.administratorRepository.findOne(id)
-        const token =  await uuidv4()
-       const resetToken = new administratorResetToken()
-       const date =  await this.getCurrentDate()
-       console.log(date)
-       resetToken.administratorId = user.id
-       resetToken.token = token
-       resetToken.expire_date = new Date(date)
-       await resetToken.save()
+         user.password = hashedpassword
+         await  user.save()
+       // const token =  await uuidv4()
+       //const resetToken = new administratorResetToken()
+      // const date =  await this.getCurrentDate()
+       //console.log(date)
+      // resetToken.administratorId = user.id
+      // resetToken.token = token
+    //   resetToken.expire_date = new Date(date)
+  //     await resetToken.save()
        /**
         * send reset token  to user email
         */
-         await this.mailService.SendAdministratorPasswordReset(user,token)
-        return {"status":"success","message":"Administrator Account Successfully Sent to User email"}
+//         await this.mailService.SendAdministratorPasswordReset(user,token)
+        return {"status":"success","message":"Administrator Password  Successfully reset to:"+password}
     } catch (error) {
       throw new HttpException(error.sqlMessage,HttpStatus.FORBIDDEN)
     }
